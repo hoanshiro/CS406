@@ -1,0 +1,29 @@
+class_label: {
+        1 : 'No entry',
+        2 : 'No parking / waiting',
+        3 : 'No turning',
+        4 : 'Max Speed',
+        5 : 'Other prohibition signs',
+        6 : 'Warning',
+        7 : 'Mandatory'
+}
+
+train_label: 'dataset/test_set/test.csv'
+test_label: 'dataset/test_set/test.csv'
+val_label: 'dataset/test_set/test.csv'
+train_imgs: 'dataset/test_set/images'
+val_imgs: 'dataset/test_set/images'
+test_imgs: 'dataset/test_set/images'
+
+
+loader_params: {'batch_size': 8,
+          'shuffle': True,
+          'pin_memory': True,
+          'collate_fn': collate_fn,
+          'num_workers': 4}
+batch_size: 1
+num_workers: 1
+IMAGE_HEIGHT: 626
+IMAGE_WIDTH: 1622
+
+NUM_EPOCHS: 10
