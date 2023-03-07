@@ -8,13 +8,18 @@ class_label: {
         7 : 'Mandatory'
 }
 
-train_label: 'dataset/test_set/test.csv'
-test_label: 'dataset/test_set/test.csv'
-val_label: 'dataset/test_set/test.csv'
-train_imgs: 'dataset/test_set/images'
-val_imgs: 'dataset/test_set/images'
-test_imgs: 'dataset/test_set/images'
-
+# train_label: '/content/drive/MyDrive/TrafficSign/data/za_traffic_2020/traffic_train/train.csv'
+# test_label: '/content/drive/MyDrive/TrafficSign/data/za_traffic_2020/traffic_public_test/test.csv'
+# val_label: '/content/drive/MyDrive/TrafficSign/data/za_traffic_2020/traffic_public_test/test.csv'
+# train_imgs: '/content/drive/MyDrive/TrafficSign/data/za_traffic_2020/traffic_train/images/'
+# val_imgs: '/content/drive/MyDrive/TrafficSign/data/za_traffic_2020/traffic_public_test/images/'
+# test_imgs: '/content/drive/MyDrive/TrafficSign/data/za_traffic_2020/traffic_public_test/images/'
+train_label: '/content/drive/MyDrive/TrafficSign/data/za_traffic_2020/traffic_train/train.csv'
+test_label: '/content/drive/MyDrive/TrafficSign/data/za_traffic_2020/traffic_public_test/test.csv'
+val_label: '/content/drive/MyDrive/TrafficSign/data/za_traffic_2020/traffic_public_test/test.csv'
+train_imgs: '/content/'
+val_imgs: '/content/'
+test_imgs: '/content/'
 
 loader_params: {'batch_size': 8,
           'shuffle': True,

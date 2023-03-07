@@ -5,7 +5,7 @@ from model import FasterRCNN, RetinaNet
 from dataset import get_loader
 from utils import get_config, get_device, save_checkpoint, load_checkpoint
 from evaluate import calculate_mAP
-
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 def train_one_epoch(model, optimizer, train_loader, device, epoch, NUM_EPOCHS):
     train_loss = 0
@@ -13,8 +13,6 @@ def train_one_epoch(model, optimizer, train_loader, device, epoch, NUM_EPOCHS):
     loop.set_description(f"Epoch [{epoch + 1}/{NUM_EPOCHS}]")
     start = time.time()
     for idx, (imgs, annotations) in enumerate(loop):
-        if idx == 2:
-            break
         imgs = list(img.to(device) for img in imgs)
         annotations = [{k: v.to(device) for k, v in t.items()} for t in annotations]
         loss_dict = model(imgs, annotations)
@@ -37,8 +35,6 @@ def validation(model, val_loader, device, epoch, NUM_EPOCHS):
         val_loop = tqdm(val_loader)
         val_loop.set_description(f"Epoch [{epoch + 1}/{NUM_EPOCHS}]")
         for idx, (imgs, annotations) in enumerate(val_loop):
-            if idx == 2:
-                break
             imgs = list(img.to(device) for img in imgs)
             annotations = [{k: v.to(device) for k, v in t.items()} for t in annotations]
             loss_dict = model(imgs, annotations)
@@ -59,10 +55,11 @@ if __name__ == "__main__":
     NUM_EPOCHS = cfg["NUM_EPOCHS"]
     train_loader, val_loader, test_loader = get_loader(params=cfg["loader_params"], cfg=cfg)
     best_loss = 9999
+    model.to(device)
     for epoch in range(NUM_EPOCHS):
         train_loss = train_one_epoch(model, optimizer, train_loader, device, epoch, NUM_EPOCHS)
         val_loss = validation(model, val_loader, device, epoch, NUM_EPOCHS)
-        if bess_loss > val_loss:
+        if best_loss > val_loss:
             save_checkpoint(model, optimizer, filename=f"checkpoint_{epoch}.pth")
         print(f"Epoch {epoch+1} - train_loss: {train_loss}, val_loss: {val_loss}")
         mAP = calculate_mAP(model, test_loader, device)
